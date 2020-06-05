@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        textarea{
+            margin: auto 200px ;
+        }
+        li{
+            background-color: pink;
+            width: 300px;
+            margin-top: 5px;
+        }
+        a{
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <textarea cols="30" rows="10">
+
+
+        </textarea>
+        <button>
+            发送
+        </button>
+        <ul>
+        </ul>
+    </div>
+    <script>
+        // 1.获取事件源
+        var text = document.querySelector('textarea');
+        var but = document.querySelector('button');
+        var ul = document.querySelector('ul');
+        // 2.绑定事件，3.添加事件处理程序
+        but.onclick = function(){
+            // 判断输入为空提示
+            if(text.value == '' ){
+                alert('你没有输入内容');
+                return false;
+            }else{
+                // 1.创建元素
+                var li = document.createElement('li');
+                // 2.添加元素将文本值给li
+                li.innerHTML = text.value + "<a href ='javascript:;'>删除</a>";
+                // ul.appendChild(li);
+                ul.insertBefore(li,ul.children[0]);
+                // 3.删除元素
+                var as = document.querySelectorAll('a');
+                for(var i = 0;i < as.length; i++){
+                    as[i].onclick =function(){
+                        ul.removeChild(this.parentNode);
+                    }
+                }
+            }
+           
+            
+        }
+    </script>
+</body>
+</html>

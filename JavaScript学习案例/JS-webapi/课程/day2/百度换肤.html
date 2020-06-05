@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            height: 999px;
+            background-color: royalblue;
+            background-image: url('');
+        }
+        img{
+            margin: 20px;
+
+        }
+    </style>
+
+</head>
+<body>
+    <div id="banner">
+        <img src="" alt="White">
+        <img src="" alt="red">
+        <img src="" alt="yellow">
+        <img src="" alt="pink">
+        <img src="" alt="black">
+    </div>
+    
+    <script>
+        var div = document.getElementById('banner');
+        var imgs = document.getElementsByTagName('img');
+        var change ;
+        for(var i = 0;i < imgs.length;i++){
+            imgs[i].onclick = function(){
+                console.log(this.alt);
+                div.style.backgroundColor = this.alt;
+                // div.style.backgroundImage = 'url("+ this.src +")';
+            }
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../jquery.min.js"></script>
+    <!-- <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"> </script> -->
+   
+   <style>
+        div{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+
+    </style>
+    
+</head>
+<body>
+    <button>上拉</button>
+    <button>下拉</button>
+    <button>切换</button>
+    <button>透明</button>
+    <div>
+
+    </div>
+    <script>
+        // $("div").hide("slow");
+        // $("button:frist").click(function(){
+        //     $("div").hide();
+        // // });
+        // var myDiv = document.querySelector('div')
+        // console.log(myDiv);
+        // console.log($("div")[0]);
+        // console.log($("div").get(0));
+        // console.log("--------");
+        // console.log($("div"));
+        // console.log($(myDiv));
+        // slideDown([s],[e],[fn])	下滑
+        // slideUp([s],[e],[fn])		上滑
+        // slideToggle([s],[e],[fn])	切换滑动
+        $(function(){
+            $("button").eq(0).click(function(){
+                $("div").slideUp(500);
+            })
+            $("button").eq(1).click(function(){
+                $("div").slideDown(300);
+            })
+            $("button").eq(2).click(function(){
+                $("div").slideToggle(200);
+            })
+            
+        })
+
+    </script>
+</body>
+</html>

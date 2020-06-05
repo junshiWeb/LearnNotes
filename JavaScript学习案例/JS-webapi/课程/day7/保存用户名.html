@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" class="userName">
+    <input type="checkbox" class="jz"> 记住用户名
+
+    <script>
+        var userName = document.querySelector('.userName');
+        var jz = document.querySelector('.jz');
+        if(localStorage.getItem('userName')){
+            userName.value = localStorage.getItem('userName');
+            jz.checked = true;
+        }
+
+        jz.addEventListener('change',function(){
+            if(this.checked){
+                localStorage.setItem('userName',userName.value);
+            }else{
+                localStorage.removeItem('userName');
+            }
+        })
+
+    </script>
+</body>
+</html>

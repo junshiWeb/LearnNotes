@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../jquery.min.js"></script>
+    <!-- <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"> </script> -->
+   
+   <style>
+       *{
+           margin: 0;
+           padding: 0;
+       }
+       .main{
+            position: relative;
+            width: 800px;
+            margin: auto;
+            top: 50px;
+       }
+       ul{
+            list-style: none;
+            float: left;
+       }
+       ul > li{
+            width: 120px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid lightcyan;
+            background-color: #eee;
+       }
+       img{
+           height: 224px;
+           widows: 160px;
+           float: left;
+           display: none;
+       }
+       img:first-child{
+            display: block;
+       }
+       .curren{
+            background-color: lightgrey;
+            cursor: pointer;
+       }
+    </style>
+    
+</head>
+<body>
+    <div class="main">
+        <ul>
+            <li>解忧杂货店</li>
+            <li>白夜行</li>
+            <li>嫌疑人X的献身</li>
+            <li>人间失格</li>
+            <li>白夜行</li>
+            <li>窗边的小豆豆</li>
+            <li>挪威的森林</li>
+        </ul>
+        <div class="mg">
+            <img src="https://img3.doubanio.com/view/subject/s/public/s27264181.jpg" alt="">
+            <img src="https://img1.doubanio.com/view/subject/s/public/s24514468.jpg" alt="">
+            <img src="https://img9.doubanio.com/view/subject/s/public/s3254244.jpg" alt="">
+            <img src="https://img9.doubanio.com/view/subject/s/public/s6100756.jpg" alt="">
+            <img src="https://img3.doubanio.com/view/subject/s/public/s4610502.jpg" alt="">
+            <img src="https://img3.doubanio.com/view/subject/s/public/s1067911.jpg" alt="">
+            <img src="https://img1.doubanio.com/view/subject/s/public/s27312538.jpg" alt="">
+        </div>
+    </div>
+    <script>
+        $(function(){
+           $("ul>li").mouseover(function(){
+                // 获取事件索引号
+                // console.log($(this).index());
+                var index = $(this).index()
+                $(".mg img").eq(index).show();
+                $(".mg img").eq(index).siblings().hide();
+                $(this).addClass("curren").siblings().removeClass("curren");
+           });
+        })
+
+    </script>
+</body>
+</html>

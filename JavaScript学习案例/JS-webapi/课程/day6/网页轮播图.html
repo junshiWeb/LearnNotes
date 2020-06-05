@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .banner{
+            position: relative;
+            width: 590px;
+            height: 470px;
+            background-color: #ccc;
+            margin: auto;
+            overflow: hidden;
+        }
+        .lb{
+            position: absolute;
+            width:1000%;
+            height: 300px;
+            /* top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); */
+        }
+        li{
+            list-style: none;
+            float: left;
+            
+        }
+        img{
+            width: 590px;
+            height: 470px;
+        }
+        a{
+            position: absolute;
+            top: 45%;
+            float: left;
+            color: red;
+            /* display: none; */
+        }
+        .btn_left{
+            /* float: left; */
+            float: left;
+        }
+        .btn_right{
+            margin-left: 560px;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <a class="btn_left">
+            左边
+        </a>
+        <a class="btn_right">
+            右边
+        </a>
+        <ul class="lb">
+            <li><img src="../../../img/1.png" alt=""></li>
+            <li><img src="../../../img/2.png" alt=""></li>
+            <li><img src="../../../img/3.png" alt=""></li>
+            <li><img src="../../../img/4.png" alt=""></li>
+        </ul>
+
+    </div>
+    <script>
+        var banner = document.querySelector('.banner');
+        var btn_left = document.querySelector('.btn_left');
+        var btn_right = document.querySelector('.btn_right');
+        var ul = document.querySelector('.lb');
+
+        // 1.鼠标移动到图片显示按键,离开隐藏按键
+        banner.addEventListener('mouseenter',function(){
+            btn_left.style.display = 'block';
+            btn_right.style.display = 'block';
+        })
+        // banner.addEventListener('mouseout',function(){
+        //     console.log('离开了');
+            
+        //     btn_left.style.display = 'none';
+        //     btn_right.style.display = 'none';
+        // })
+        // 2.显示图片小点，点击跳转图片
+
+    </script>
+
+</body>
+</html>

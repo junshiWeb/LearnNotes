@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <img src="" alt="早上">
+    <div class="zao">早上好</div>
+
+    <script>
+        // 根据系统时间判断是早中晚
+        // 利用分支语句来判断选择图片
+        // 需要三个图片问候
+        // 需要三个问候语
+
+        // 1.获取元素
+        var img = document.querySelector('img');
+        var div = document.querySelector('div');
+        var date = new Date();
+        var h = date.getHours();
+        console.log(h);
+        
+        if( h < 12){
+            img.src = '';
+            img.alt = '上午好';
+            div.innerHTML = '亲，上午好';
+        }else if(h < 18){
+            img.src = '';
+            img.alt = '下午好';
+            div.innerHTML = '亲，下午好';
+        }else{
+            img.src = '';
+            img.alt = '晚上好';
+            div.innerHTML = '亲，晚上好';
+        }
+
+        
+
+    </script>
+</body>
+</html>
