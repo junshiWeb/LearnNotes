@@ -228,7 +228,7 @@ computed:{计算属性:(){
 
   - <script type="text/x-template" id="cpn"> 
 
-  - 之后通过注册方式使用
+  - 通过注册方式使用
 
 - 组件中的数据
 
@@ -242,7 +242,7 @@ computed:{计算属性:(){
   }}}}
   ```
 
-  - 组件中的数据必须是函数，必须有返回值，或则组件作用域问题会影响其他组件中的数据
+  - 组件中的数据必须是函数，必须有返回值，或则**组件作用域**问题会影响其他组件中的数据
 
 - 父组件=>子组件
 
@@ -266,15 +266,38 @@ computed:{计算属性:(){
   ```
 
   - 注意点：
-    1. 类型为数组是，默认值必须为一个函数
-    2. 驼峰命名冲突，v-bind不支持驼峰命名
+    1. 类型为数组时，默认值必须为一个**函数**
+    2. 驼峰命名冲突，**v-bind不支持驼峰命名**
   - 父组件访问子组件
     - $children
-    - $refs
+    - $**refs** 
+
+  ```html
+  <component ref="xxxx"> </component>
+  <script> 
+  this.$refs.xxxx
+  </script>
+  ```
+
+  > 总结：父组件传数据到子组件使用props，父组件要访问子组件使用$refs
 
 - 子组件=>父组件
 
   - $emit
+
+  ```html
+  <cpn @itemclick='cpnClick'></cpn>
+  this.$emit('itemclick', item)
+  父组件点击，子组件触发事件itemclick，将item传出
+  使用：一般是父组件需要子组件某个数据，通过触发事件来触发
+  ```
+
+  - $parent 	获取父组件
+  - $root  获取根节点
+
+  使用：this.$parent   this.$root
+
+  > 总结：子组件创数据到父组件使用$emit，子组件要访问父组件使用$parent or $root
 
 - 组件插槽 slot
 
@@ -297,7 +320,10 @@ computed:{计算属性:(){
 ```
 
 - 插槽注意事项
-  - 
+  
+  - 组件中动态绑定数据
+  
+    <slot :data="pLanguage">  </slot>
 
 ### 10. Vue生命周期
 
@@ -305,6 +331,12 @@ computed:{计算属性:(){
 - mounted     实例被挂载后调用 
 - destroyed    实例被销毁后调用
 - updated       数据导致虚拟DOM重新渲染调用
+- activated      keep-alive 缓存的组件激活时调用
+- deactivated      keep-alive 缓存的组件停用时调用
+
+> 总结使用场景：
+>
+> created：
 
 ### 11.前端模块化
 

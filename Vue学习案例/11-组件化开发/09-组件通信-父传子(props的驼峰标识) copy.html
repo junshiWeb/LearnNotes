@@ -12,20 +12,24 @@
   <div id="app">
     <!-- v-bind不支持驼峰 :cUser改成 :c-User-->
     <!-- <cpn :cUser="user"></cpn> -->
+    <h1>-----方式1：加‘-’-------</h1>
     <cpn :c-User="user"></cpn>
+    <hr />
+    <cpn :c-user="user" ></cpn>
+    <hr />
+    <h1>------方式2：不加‘-’-----</h1>
+    <cpn :cUser="user"></cpn>
+    <hr />
     <cpn :cuser="user" ></cpn>
 
   </div>
 
   <template id="cpn">
-
     <div>
       <!-- 使用驼峰 -->
-      <h2>{{cUser}}</h2>
+      <h2>cUser <br> {{cUser}}</h2>
       <!-- 不使用 -->
-      <h2>{{cuser}}</h2>
-
-
+      <h2>cuser <br> {{cuser}}</h2>
     </div>
   </template>
 
@@ -53,10 +57,15 @@
     const app = new Vue({
       el: "#app",
       data: {
-        user:{
+        user: {
           name:'zzz',
           age:18,
           height:175
+        },
+        users: {
+          name: 'mm',
+          age: 24,
+          height: 170
         }
       },
       components: {

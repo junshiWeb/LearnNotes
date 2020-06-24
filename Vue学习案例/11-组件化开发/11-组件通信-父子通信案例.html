@@ -14,9 +14,10 @@
 
     <cpn :number1='num1' :number2='num2' @num1change="num1Change" @num2change="num2Change"></cpn>
 
-    <h2>父组件{{num1}}</h2>
+    <h4>父组件变化</h4>
+    <p>父组件：{{num1}}</p>
     <input type="text" v-model="num1" >
-    <h2>父组件{{num2}}</h2>
+    <p>父组件：{{num2}}</p>
     <input type="text" v-model="num2">
 
   </div>
@@ -25,10 +26,10 @@
   <template id="cpn">
 
     <div>
-      <h2>子组件number1{{number1}}</h2>
-      <h2>子组件dunber1{{dnumber1}}</h2>
+      <p>子组件中父组件数据number1：{{number1}}</p>
+      <p>子组件数据dunber1：{{dnumber1}}</p>
       <input type="text" :value="dnumber1" @input="num1input">
-      <h2>子组件number2{{number2}}</h2>
+      <p>子组件中父组件数据nnumber2：{{number2}}</p>
       <input type="text" :value="dnumber2" @input="num2input">
     </div>
   </template>
@@ -41,6 +42,7 @@
       template: "#cpn",
       data() {
         return {
+          //接收父组件数据
           dnumber1:this.number1,
           dnumber2:this.number2
         }
@@ -51,11 +53,15 @@
       },
       methods: {
         num1input(event){
+          // 获取子组件输入框数据1
           this.dnumber1 = event.target.value
+          // 将子组件中数据传输出去
           this.$emit('num1change',this.dnumber1)
         },
         num2input(event){
+          // 获取子组件输入框数据2
           this.dnumber2 = event.target.value
+          // 将子组件中数据传输出去
           this.$emit('num2change',this.dnumber2)
         }
       },

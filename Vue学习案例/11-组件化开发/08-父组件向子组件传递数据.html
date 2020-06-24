@@ -12,6 +12,8 @@
   <div id="app">
 
     <cpn :cMovies="movies" :cMessage="message"></cpn>
+    <hr />
+    <cpn>{{movies}}</cpn>
 
   </div>
 
@@ -31,6 +33,7 @@
   <script>
     // 父传子：props
     const cpn = {
+      // 子组件
       template: "#cpn",
       // props: ['cmovies', 'cmessage'],//数组写法
       props: { //对象写法
@@ -41,14 +44,14 @@
         // 2.提供一些默认值，以及必传值
         cmessage: {
           type: String,
-          default: 'zzzzz',
-          required: true //在使用组件必传值
+          default: 'message默认值',
+          required: true //在使用组件需要使用者必传值true/false
         },
-        //类型是Object/Array，默认值必须是一个函数
+        // 类型是Object/Array，默认值必须是一个函数
         cmovies: {
           type: Array,
           default () {
-            return [1, 2, 3, 4]
+            return [1, 2, 3, '默认']
           }
         },
         // 3.自定义验证函数
@@ -58,14 +61,6 @@
         // }
         // 4.自定义类型
         // cmessage:Person,
-
-      },
-      data() {
-        return {
-
-        }
-      },
-      methods: {
 
       },
     };
