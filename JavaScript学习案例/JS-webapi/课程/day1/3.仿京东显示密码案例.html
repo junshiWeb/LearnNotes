@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            position: relative;
+            width:400px;
+            margin: 100px auto;
+            border-bottom: 1px solid #999;
+        }
+        .box input{
+            width: 370px;
+            height: 30px;
+            border: none;
+            
+        }
+        .box img{
+            position: absolute;
+            width: 40px;
+            height: 24px;
+            top: 2px;
+            right: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <label for=""></label>
+        <input type="password" id="pwd"> 
+        <img src="./img/闭眼.png" alt="闭睛" id="eye">
+    </div>
+    <script>
+      var input_pwd = document.getElementById("pwd")
+      var pwd_eye = document.getElementById("eye")
+      var flag = true
+      pwd_eye.onclick = function() {
+        if(flag){
+          input_pwd.type = "text"
+          this.src = "./img/小眼睛.png"
+          this.alt = "开眼"
+          flag = !flag
+        }else {
+          input_pwd.type = "password"
+          this.src = './img/闭眼.png'
+          this.alt = "闭眼"
+          flag = !flag
+        }
+      }
+      
+        // 1.获取对象
+        // var pwd = document.getElementById('pwd');
+        // var eye = document.getElementById('eye');
+        // var flag = 0;
+        // eye.onclick = function(){
+        //     if(flag == 0){
+        //         pwd.type = 'text';
+        //         this.src = '';
+        //         this.alt = '开眼';
+        //         flag = 1;
+        //     }
+        //     else{
+        //         pwd.type = 'password';
+        //         this.src = '';
+        //         this.alt = '闭眼';
+        //         flag = 0 ;
+        //     }
+        // }
+        
+    </script>
+</body>
+</html>

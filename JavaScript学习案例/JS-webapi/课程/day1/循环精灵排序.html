@@ -4,9 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      div {
+        width: 400px;
+        margin: 100px auto ;
+      }
+      ul{
+        list-style: none;
+      }
+      ul li {
+        float: left;
+        width: 70px;
+        height: 70px;
+        /* position: absolute; */
+        background: url(./img/精灵图.png) no-repeat ;
+      }
+      .one {
+        background-position: -100px;
+      }
+    </style>
 </head>
 <body>
-    
+    <div>
+      <ul>
+        <li class="icon"></li>
+        <li class="icon one"></li>
+        <li class="icon"></li>
+        <li class="icon"></li>
+        <li class="icon"></li>
+        <li class="icon"></li>
+        <li class="icon"></li>
+        <li class="icon"></li>
+        <li class="icon"></li>
+        <li class="icon"></li>
+        <li class="icon"></li>
+        <li class="icon"></li>
+      </ul>
+    </div>
+  <script>
+    var lis = document.querySelectorAll('li')
+    for (var i = 0; i < lis.length; i++){
+      var index = 70 * i
+   
+      
+      lis[i].style.backgroundPosition = '-' + index +'px'
+      console.log('-' + index +'px');
+      
+    }
+  </script>
 </body>
 </html>
