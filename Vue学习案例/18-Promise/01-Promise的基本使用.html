@@ -21,7 +21,7 @@
 
     //参数 -> 函数
     // resolve和reject本身也是函数
-    //then()的参数也是一个函数
+    // then()的参数也是一个函数
     new Promise((resolve, reject) => {
       setTimeout(() => {//第一次网络请求
         resolve()
@@ -51,15 +51,13 @@
     new Promise((resolve, reject) => {
       setTimeout(() => {
         // 成功的时候调用resolve()
-        // resolve('hello world')
-
+        resolve('hello world')
         // 失败的时候调用reject()
-        reject('error message')
-      }, 1000).then(data => {
-        console.log(data)
-      }).catch(error => {
-        console.log(error)
-      })
+        // reject('error message')
+        
+      },1000).then( res =>  console.log(res)
+      ).catch(error => console.log(error)
+      )
     })
   </script>
 </body>
