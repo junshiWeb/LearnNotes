@@ -84,7 +84,7 @@
 - 计算属性基本使用
   - 需要动态监听属性的变化时使用
 
-```vue
+```js
 基本使用
 <h>{{计算属性}}</h>
 computed:{计算属性:(){
@@ -98,7 +98,7 @@ computed:{计算属性:(){
 ```
 
 - computed中的getter和setter方法
-  - 一般情况只使用get方法，set方法设置值，一般不使用
+  - 默认使用get方法，set方法设置值，一般不使用
 - computed和methods对比
   - computed有缓存，methods没缓存
   - 性能上要好于methods
