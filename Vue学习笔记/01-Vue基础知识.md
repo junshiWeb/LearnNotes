@@ -78,6 +78,7 @@
   - .enter     监听键盘事件
     - keyup
     - keydown
+  - .native 可以在组件上绑定事件
 
 ### 5.计算属性和侦听器
 
