@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <span>1</span>
+  <button>change</button>
+  <script>
+    // 4. proxy
+    var proxy = new Proxy({}, {
+      get: function (obj, prop) {
+        console.log('获取 get 操作');
+        return obj[prop]
+      },
+      set: function (obj, prop, value) {
+        console.log('修改 set 操作');
+        obj[prop] = value
+      }
+    })
+
+    proxy.time = 11
+    console.log(proxy.time);
+
+    var handler = {
+      has(targer, key) {
+        if (key[0] === '_') {
+          return false
+        }
+        return key in targer
+      }
+    }
+
+    var targer = {
+      _prop: 'foo',
+      prop: 'foo2'
+    }
+    var proxy = new Proxy(targer, handler)
+    console.log(proxy._prop);
+
+    // 3. Object.defineProperty
+    //  (function() {
+    //   // var root = this
+    //   function watch(obj, name, fn) {
+    //     var value = obj[name]
+    //     Object.defineProperty(obj, name, {
+    //       get: function() {
+    //         return value
+    //       },
+    //       set: function(newValue) {
+    //         value = newValue
+    //         fn(newValue)
+    //       }
+    //     })
+    //     if (value) obj[name] = value
+    //   }
+
+    //   this.watch = watch
+    // })()
+
+    // var obj = {
+    //   value: 1
+    // }
+
+    // watch(obj, 'value', function(newValue) {
+    //   document.querySelector('span').innerHTML = newValue
+    // })
+
+    // document.querySelector('button').addEventListener("click", function() {
+    //   obj.value++
+    // })
+
+    // var obj = {}, value = null;
+    // Object.defineProperty(obj, 'num', {
+    //   get: function() {
+    //     console.log('执行了 get 操作')
+    //     return value
+    //   },
+    //   set: function(newValue) {
+    //     console.log('执行了 set 操作')
+    //     value = newValue
+    //   }
+    // })
+
+    // // obj.num = 1
+    // console.log(obj.num)
+
+    // function Archive() {
+    //   var value = null
+    //   var archive = []
+
+    //   Object.defineProperty(this, 'num', {
+    //     get: function() {
+    //       console.log('执行了 get 操作');
+    //       return value
+    //     },
+    //     set: function(newValue) {
+    //       console.log('执行了 set 操作');
+    //       value = newValue
+    //       archive.push({val: value})
+    //     }
+    //   })
+    //   this.getArchive = function() {return archive}
+    // }
+    // var arc = new Archive()
+    // arc.num
+    // arc.num = 1
+    // arc.num = 121
+    // console.log(arc.getArchive());
+    // new 的过程
+    function tNew() {
+      let constructor = [].shift.call(arguments)
+      console.log(constructor);
+      let obj = {}
+      obj.__proto__ = constructor.prototype
+      constructor.apply(obj, arguments)
+      return obj
+    }
+
+    // tNew()
+
+    function Animal(type) {
+      this.type = type;
+    }
+    Animal.prototype.say = function () {
+      console.log('say')
+    }
+
+    function mockNew() {
+      let constructor = [].shift.call(arguments); // 取出构造函数
+      
+      let obj = {} // new 执行会创建一个新对象
+
+      obj.__proto__ = Constructor.prototype
+
+      Constructor.apply(obj, arguments)
+      return obj
+    }
+    let animal = mockNew(Animal, 'dog')
+
+    console.log(animal.type) // dog
+    animal.say() // say
+  </script>
+</body>
+
+</html>

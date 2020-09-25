@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style type="text/css">
+    .list {
+      width: 200px;
+      height: 250px;
+      overflow: hidden;
+      transform: rotate(120deg);
+      margin: 200px;
+    }
+
+    .list_child {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      transform: rotate(-60deg);
+    }
+
+    .list_child_child {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      transform: rotate(-60deg);
+      background: red;
+    }
+    .me {
+      position: absolute;
+      top: 46%;
+      left: 45%;
+      width: 20px;
+      height: 20px;
+      background-color: #000;
+      border-radius: 50%;
+      animation: mymove 2s infinite;;
+    }
+    @-webkit-keyframes mymove {
+    50% {background: #fff bottom right/50px 50px;}
+}
+  </style>
+</head>
+
+<body>
+  <div class="list">
+    <div class="list_child">
+      <div class="list_child_child"></div>
+    </div>
+    <div class="me"></div>
+  </div>
+  　
+</body>
+
+</html>

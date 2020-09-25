@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    const arr = [1, [2, 3],
+      [4, [5, 6], 7], 8, 9
+    ]
+    console.log('原数组');
+    console.log(arr);
+    // method 1
+    const res1 = arr.flat(Infinity)
+    console.log(res1);
+
+    // method 2
+    const res2 = JSON.stringify(arr).replace(/\[|\]/g, '').split(',')
+    console.log(res2);
+
+    // mothod 3
+    const flat3 = arr => {
+      return arr.reduce((pre, cur) => {
+        return pre.concat(Array.isArray(cur) ? flat3(cur) : cur)
+      }, []) // 
+    }
+    const res3 = flat3(arr)
+    console.log(res3);
+
+    // mothod 4
+    const res4 = []
+    const flat4 = arr => {
+      for (let i = 0; i < arr.length; i++) {
+        if (Array.isArray(arr[i])) {
+          flat4(arr[i])
+        } else {
+          res4.push(arr[i])
+        }
+      }
+    }
+
+    function flatmy(arr) {
+      const newarr = []
+      if (Array.isArray(arr)) {
+        for (let i = 0; i < arr.length; i++) {
+          if (Array.isArray(arr[i])) {
+            flatmy(arr[i])
+          } else {
+            newarr.push(arr[i])
+          }
+        }
+        return newarr
+      } else {
+        console.log('----');
+      }
+
+    }
+    flatmy(arr)
+    flat4(arr)
+    console.log(res4);
+    console.log();
+
+    console.log('----------柯里化----------');
+
+    // 柯里化：指的是将一个接受多个参数的函数 变为 接受一个参数返回一个函数的固定形式，这样便于再次调用，例如f(1)(2)
+    function add() {
+      // 保存第一次传入的参数
+      const _args = [...arguments];
+
+      // 第二次加入的函数参数添加到第一次参数中
+      function fn() {
+        console.log(_args);
+        _args.push(...arguments);
+        return fn;
+      }
+      // 将参数进行累加计算
+      fn.toString = function () {
+        return _args.reduce((sum, cur) => sum + cur);
+      }
+      return fn;
+    }
+    
+    console.log(add(3)(5)(1)(4));
+
+  </script>
+
+</body>
+
+</html>

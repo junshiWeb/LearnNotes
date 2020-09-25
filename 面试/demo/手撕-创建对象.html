@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // 1. 原型链的继承
+    // 原理：通过原型链像上查找的特点，让子类原型链继承父类的一个实例，在子类进行访问的时候就会查找父类实例的属性和方法
+    // 缺点：
+    // 1.原型链的继承会造成属性修改的混合，子类修改父类的元素，父类又修改子类的元素
+    // 2.同事子类不能向父类一样修改参数和传参
+    function Person(name) {
+      this.name = name
+    }
+
+    function Son(name) {
+      this.name = name
+    }
+    Son.prototype = new Person()
+
+    // 2. 构造函数继承
+    // 原理：通过 call 在子类中继承父类的构造函数并修改指向
+    // 优点：解决了原型链继承无法传参的问题
+    // 缺点：
+    // 1.只能继承父类构造函数的方法和属性，父类原型新增的方法和属性无法继承
+    // 2.和构造函数一样的问题，每次创建实例都会复制一次方法和属性
+    function Person(name) {
+      this.name = name
+    }
+
+    function Son(name) {
+      Person.call(this, name)
+    }
+    var son = new Son()
+
+    // 3. 组合继承
+    // 原理：结合原型链和构造函数进行继承，
+    // 优点：解决了原型链不能传参和修改属性混乱的问题，解决了构造函数不能继承原型新增方法和属性无法继承的问题
+    // 缺点：在创建子类实例的时候，会创建两个父类的构造函数，造成内存的浪费
+    function Person(name) {
+      this.name = name
+    }
+
+    function Son(name) {
+      Person.call(this, name)
+    }
+    // 通过 new 实例来继承父类的原型
+    Son.prototype = new Person()
+    // 通过 直接等于来继承父类的原型
+    // 优点：解决了创建两次构造函数的问题
+    // 缺点：子类和父类在原型上的方法和属性无法区分
+    Son.prototype = Person.prototype
+
+    // 4. 寄生继承
+    function inherit(o) {
+      clone.sayHi = function () {
+        console.log(this.name);
+      }
+      return clone
+    }
+    var person = {
+      name: "Nicholas",
+      friends: ["Shelby", "Court", "Van"]
+    };
+    var anotherPerson = inherit(person);
+    anotherPerson.sayHi(); //"hi"```
+    var ins = inherit()
+    ins.sayHi()
+  </script>
+
+</body>
+
+</html>

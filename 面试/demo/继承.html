@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    // 原型链的继承
+    // function Person(name, age) {
+    //   this.name = name, 
+    //   this.age = age,
+    //   this.play = [1, 2, 3]
+    //   this.setName = function() {}
+    // }
+    // Person.prototype.setAge = function () {}
+    // function Son(price) {
+    //   this.prcie = price
+    //   this.setScore = function() {}
+    // }
+    // Son.prototype = new Person()
+    // var s1 = new Person(name, 18)
+    // var s2 = new Son(14999)
+    // console.log(s1, s2);
+    
+    // 构造函数继承
+    // function Person(name) {
+    //   this.name = source
+    //   console.log(this.name);
+    //   this.colors = ["red", "blue"]
+    // }
+    // function Son() {
+    //   Person.call(this)
+    // }
+    // var ins1 = new Son()
+    // console.log(ins1.colors);
+
+    // var ins2 = new Son()
+    // ins2.colors.push("block")
+    // console.log(ins2.colors);
+
+    // 组合继承
+    function Person(name) {
+      this.name = name
+      console.log(this.name);
+      this.colors = ["red", "blue"]
+    }
+    Person.prototype.sayName = function() {
+      console.log(this.name);
+    }
+    function Son(name, age) {
+      this.age = age
+      Person.call(this, name)
+    }
+    // 继承方法
+
+    Son.prototype = new Person()
+    Son.prototype.constructor = Son
+    Son.prototype.sayAge = function() {
+      console.log(this.age);
+    }
+    
+
+    var ins1 = new Person('preson')
+    var ins2 = new Son('son', 18)
+    console.log(ins1);
+    console.log(ins2);
+    ins1.sayName()
+    ins2.sayName()
+    ins2.sayAge()
+  </script>
+</body>
+</html>

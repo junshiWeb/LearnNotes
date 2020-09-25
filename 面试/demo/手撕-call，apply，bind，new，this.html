@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    Function.prototype.mycall = function (context, ...args) {
+      context = context == null ? window : context
+
+      let result
+      context['fn'] = this // 把函数作为对象的某个成员值
+      console.log(context['fn']);
+      result = context['fn'](...args) // 执行函数，此时函数中的this就是
+      console.log(result);
+      delete context['fn'] // 设置完成员属性后，删除
+      return result
+    }
+
+    function fnc() {
+      var name = 'fnc'
+      // console.log(this.name);
+    }
+    var fn = fnc()
+    // console.log(fn);
+    // fnc.mycall()
+
+    Function.prototype.mycall = function (context, ...args) {
+      context = context == null ? windex : context
+      let result
+      context['fn'] = this
+      result = context['fn'](...args)
+      delete context['fn']
+      return result
+    }
+
+    let arr = [
+      [1, 2, 2],
+      [3, 4, 5, 5],
+      [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10
+    ];
+
+    // console.log(arr.flat(Infinity));
+
+    function myFlat(name) {
+      // console.log(arr);
+      // console.log(this);
+      this.name = 'flat'
+      console.log(this.name);
+    }
+    Array.prototype.myflat = myFlat
+    // console.log(Array.isArray(arr));
+    var obj = {
+      name: 'zzm'
+    }
+    myFlat.call(obj, 'zzm')
+
+    Function.prototype.myapply = function (context, args) {
+      context = context == null ? window : context
+      if (Array.isArray(args)) {
+        let result
+        context['fn'] = this
+        result = context['fn'](...args)
+        delete context['fn']
+        return result
+      } else {
+        return console.log('输入数组')
+      }
+    }
+
+    const numbers = [5, 6, 2, 3, 7];
+
+    const max = Math.max.apply(null, numbers);
+
+    const max1 = Math.min.myapply(null, numbers)
+    console.log(max);
+    console.log(max1);
+    // expected output: 7
+
+   
+  </script>
+</body>
+
+</html>

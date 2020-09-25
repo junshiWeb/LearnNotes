@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    var str = '11'
+    var arr = [3, [1, 3], {
+      name: 2
+    }]
+    var obj = {
+      name,
+      arr: [3, [1, 3], {
+        name: 2
+      }],
+      obj: {
+        name,
+        arr: [3, [1, 3], {
+          name: 2
+        }]
+      }
+    }
+    // 浅克隆
+    function shallClone(target) {
+      // 判断是否为对象
+      if (typeof target === 'object' && target !== '') {
+        // 给变量赋值空数组或对象
+        const cloneTarget = Array.isArray(target) ? [] : {}
+        // 遍历传参数组对象
+        for (let prop in target) {
+          // 判断传参对象是否包含属性 好像有点多余？
+          if (target.hasOwnProperty(prop)) {
+            cloneTarget[prop] = target[prop]
+          }
+        }
+        return cloneTarget
+      } else {
+        return target
+      }
+    }
+    // 深克隆
+    function deepClone(target) {
+      if (typeof target === 'object' && target === '') {
+        const deepTarget = Array.isArray(target) ? [] : {};
+        for (let prop in target) {
+          if (target.hasOwnProperty(prop)) {
+            deepTarget[prop] = deepClone[prop]
+          }
+        }
+
+      } else {
+        return target
+      }
+    }
+    const cloneTarget = {}
+    for (let prop in obj) {
+      // 判断传参对象是否包含属性
+      // if (obj.hasOwnProperty(prop)) {
+      //   cloneTarget[prop] = obj[prop]
+      // }
+      cloneTarget[prop] = obj[prop]
+    }
+    console.log(cloneTarget);
+  </script>
+
+
+</body>
+
+</html>

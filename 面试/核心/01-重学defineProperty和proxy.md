@@ -54,11 +54,22 @@ var proxy = new Proxy({}, {
         console.log('设置 set 操作')
         obj[prop] = value;
     }
+}); 
+===
+var proxy = new Proxy({}, {
+    get(obj, prop) {
+        console.log('设置 get 操作')
+        return obj[prop];
+    },
+    set(obj, prop, value) {
+        console.log('设置 set 操作')
+        obj[prop] = value;
+    }
 });
 
 proxy.time = 35; // 设置 set 操作
 
-console.log(proxy.time); // 设置 get 操作 // 35
+console.log(proxy.time); // 获取 get 操作 // 35
 
 ```
 

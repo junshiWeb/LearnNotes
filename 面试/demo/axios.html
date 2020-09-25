@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<header>
+  <meta charset="UTF-8">
+  <title>axios</title>
+</header>
+
+<body>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    // 获取远端图片
+    const instance = axios.create({
+      baseURL: 'https://mock.yonyoucloud.com/mock/15579',
+      timeout: 5000,
+      headers: {'X-Custom-Header':'foobar'}
+    })
+    // instance.get('/test').then(function(res) {
+    //   console.log(res.data);
+    // })
+    // instance.get('/post1').then((res) => {
+    //   console.log(res.data)
+    // }).catch((err) => {
+    //   console.log(err)
+    // }) 
+    instance({
+      method: 'get',
+      url: '/test',
+    }).then(res => {
+      console.log(res.data);
+    }).catch(err => {
+      console.log(err);
+    })
+    instance(options).then(res => {
+      resolve(res)
+    }).catch(err => {
+      reject(err)
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // 防抖：在一段时间内，某个事件触发频率过高，设置一个时间间隔，让这个事件在一个间隔下触发多次，则初始化这个事件
+    // 场景：搜索框
+    function debounce(fn, delay = 500) {
+      var timer = null
+      return function() {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          fn.call(this, arguments)
+          timer = null
+        }, delay)
+      }
+    }
+    document.addEventListener('mousemove', fn)
+    // 节流
+    function throttle(fn, delay = 500) {
+      var timer = null
+      return function anonymous(...args) {
+        if(!timer) {
+          timer = setTimeout(() => {
+            fn.call(this, ...args)
+            timer = null
+          }, delay)
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
