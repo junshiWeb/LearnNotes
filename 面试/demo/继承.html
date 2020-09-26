@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
-  
+
   <script>
     // 原型链的继承
     // function Person(name, age) {
@@ -24,7 +26,7 @@
     // var s1 = new Person(name, 18)
     // var s2 = new Son(14999)
     // console.log(s1, s2);
-    
+
     // 构造函数继承
     // function Person(name) {
     //   this.name = source
@@ -42,34 +44,60 @@
     // console.log(ins2.colors);
 
     // 组合继承
-    function Person(name) {
-      this.name = name
-      console.log(this.name);
-      this.colors = ["red", "blue"]
-    }
-    Person.prototype.sayName = function() {
-      console.log(this.name);
-    }
-    function Son(name, age) {
-      this.age = age
-      Person.call(this, name)
-    }
+    // function Person(name) {
+    //   this.name = name
+    //   console.log(this.name);
+    //   this.colors = ["red", "blue"]
+    // }
+    // Person.prototype.sayName = function() {
+    //   console.log(this.name);
+    // }
+    // function Son(name, age) {
+    //   this.age = age
+    //   Person.call(this, name)
+    // }
     // 继承方法
 
-    Son.prototype = new Person()
-    Son.prototype.constructor = Son
-    Son.prototype.sayAge = function() {
-      console.log(this.age);
+    // Son.prototype = new Person()
+    // Son.prototype.constructor = Son
+    // Son.prototype.sayAge = function() {
+    //   console.log(this.age);
+    // }
+
+
+    // var ins1 = new Person('preson')
+    // var ins2 = new Son('son', 18)
+    // console.log(ins1);
+    // console.log(ins2);
+    // ins1.sayName()
+    // ins2.sayName()
+    // ins2.sayAge()
+
+    // 寄生继承
+    // function inHeri(o) {
+    //   this.name = 'main'
+    //   var clone = Object(o)
+    //   clone.sayHi = function () {
+    //     console.log(this.name)
+    //   }
+    //   return clone
+    // }
+    // var person = {
+    //   name: "person",
+    //   friends: ["Shelby", "Court", "Van"]
+    // };
+
+    // var instance1 = new inHeri(person)
+    // instance1.sayHi()
+    // console.log(instance1)
+
+    function inheritPrototype(son, person) {
+      var prototype = Object(person.prototype)
+      prototype.constructor = son
+      son.prototype= prototype
     }
     
-
-    var ins1 = new Person('preson')
-    var ins2 = new Son('son', 18)
-    console.log(ins1);
-    console.log(ins2);
-    ins1.sayName()
-    ins2.sayName()
-    ins2.sayAge()
   </script>
 </body>
+
 </html>

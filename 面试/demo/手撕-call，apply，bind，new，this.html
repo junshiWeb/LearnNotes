@@ -15,9 +15,7 @@
 
       let result
       context['fn'] = this // 把函数作为对象的某个成员值
-      console.log(context['fn']);
       result = context['fn'](...args) // 执行函数，此时函数中的this就是
-      console.log(result);
       delete context['fn'] // 设置完成员属性后，删除
       return result
     }
