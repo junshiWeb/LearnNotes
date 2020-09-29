@@ -20,6 +20,16 @@ const shallClone = (target) => {
     }
   }
 }
+const shallClone = (target) => {
+  if (typeof target !== 'null' && typeof target === 'object') {
+    const cloneTarget = Array.isArray(target) ? [] : {}
+    for (let key in target) {
+      cloneTarget[key] = target[key]
+    }
+    return cloneTarget
+  }
+  return target
+}
 
 ```
 
@@ -40,6 +50,16 @@ function deepClone(target) {
   }
   return cloneTarget;
 }
+
+const deepClone = (target) => {
+  if (target === null) return null
+  if (typeof target !== 'object') return target
+  const cloneTarget = Array.isArray(target) ? [] : {};
+  for (let key in cloneTarget) {
+    cloneTarget[prop] = deepClone(target[prop])
+  }
+  return cloneTarget
+}
 ```
 
 ## 3. 防抖节流
@@ -51,6 +71,17 @@ function debounce(fn, delay) {
   var timer = null;
   return function() {
     clearsetTimeout(timer)
+    timer = setTimeout(() => {
+      fn.call(this, arguments)
+      timer = null
+    }, delay)
+  }
+}
+
+function buounce(fn, delay) {
+  var timer = null
+  return function() {
+    clearTimeout(timer)
     timer = setTimeout(() => {
       fn.call(this, arguments)
       timer = null
@@ -73,6 +104,17 @@ function throttle(fn, delay) {
     }
   }
 }
+function throttle(fn, delay = 1000) {
+  var timer = null
+  return function() {
+    if(!timer) {
+      timer = setTimerout(() => {
+        fn.call(this, arguments)
+        timer = null
+      }, delay)
+    }
+  }
+}
 ```
 
 ## 4. call，apply，bind，new，this
@@ -87,6 +129,15 @@ Function.prototype.mycall = function(context, ...args) {
   result = context['fn'](...args)
   	delete context['fn']
   return result
+}
+
+Function.prototype.mycall = function(context, ...args) {
+  let res 
+  fn = Symbol('fn')
+  context[fn] = this
+  const res = context[fn](...args)
+  delete context[fn]
+  return res
 }
 ```
 
@@ -105,6 +156,13 @@ Fucntion.prototype.myapply = function(context, args) {
     return console.log('输入数组')
   }
 }
+Function.prototype.myApply = function(context, args) {
+  let res
+  context['fn'] = this
+  res = context['fn'](...args)
+  delete context['fn']
+  return res
+}
 ```
 
 - bind：修改 this 指向，并且立即执行
@@ -114,6 +172,13 @@ Function.prototype.mybind = function(context, args) {
 	let _this = this
   return fucntion() {
     _this.call(context, ...args)
+  }
+}
+
+Function.prototype.myBind = function(context, ...args) {
+  let that = this
+  return function() {
+    that.apply(context, ...args)
   }
 }
 ```
@@ -146,6 +211,13 @@ const myFlat = arr => {
     return pre.concat(Array.isArray(cur) ? myFlat(cur) : cur);
   }, []);
 };
+// flat 方法
+const res1 = arr.flat(Infinity)
+
+// JSON方法
+const res2 = JSON.stringify(arr).resplace(/\[}\]/, '').split(',')
+const res3 = JSON.parse('[' + JSON.stringif(arr).resplace(/\[|\]/, '') + ']')
+
 ```
 
 - 柯里化：是给函数分步传递参数，每次传递部分参数，并返回一个更具体的函数接收剩下的参数，这中间可嵌套多层这样的接收部分参数的函数，直至返回最后结果。
@@ -178,3 +250,51 @@ let fn3 = fn2(4)  // 10
 
 ```
 
+## 发布订阅者
+
+```js
+function Observe() {
+  var list = {}, addList, sub, once, remove;
+  // 订阅者
+  addList = function(key, fn) {
+    if (!list[key]) {
+      list[key] = []
+    }
+    list[key].push(fn)
+  }
+  // 发布者
+  sub = function() {
+    var key = [].shift.call(arguments) // 取出消息类型
+    var fns = list[key] // 取出该类型的消息集合
+    if (!fns || fns.length === 0) {
+      return false
+    }
+    fns.forEach( item => {
+      item.apply(this, arguments)
+    })
+    
+  }
+ 	// 只执行一次
+  once = function() {
+    
+  }
+  // 删除
+  remove = function(key, fn) {
+    var fns = list[key] // 取出该消息的集合
+    if (!fns) { // 如果没有对应的消息则直接返回
+      return false
+    }
+    if (!fn) { // 如果没有对象的回调，则取消所有消息
+      fns && (fns.length = 0)
+    } else { // 遍历数组，删除对应的回调
+			fns.forEach((item, index) => {
+        if(item === fn) {
+          fns.splice(index, 1)
+        }
+      })
+    }
+  }
+}
+```
+
+## **双向绑定**
