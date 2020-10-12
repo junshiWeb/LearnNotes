@@ -40,6 +40,78 @@ Object.defindeProperty(obj, 'prop', {
 
 
 
+#### defineProerty 实现双向绑定
+
+ 
+
+```js
+1. 修改 data 数据， vue 内部如何监听 data 数据的改变
+Object.defineProperty -> 监听对象属性的改变
+
+2. 当数据发送改变，Vue 是如何知道要通知那些人，界面发送刷新
+发布订阅者模式
+function render() {
+  console('模拟视图渲染')
+}
+class Dep {
+  constructor() {
+    this.subs = []
+  }
+  addSub(sub) {
+    this.subs.push[sub]
+  }
+  notify() {
+    this.subs.forEach(sub => {
+      sub.update()
+    })
+  }
+}
+class Watcher {
+  constructor(obj, key, cb) {
+    Dep.target = this
+    this.obj = obj
+    this.key = key
+    this.cb = cb
+    Dep.target = null
+  }
+  update() {
+    this.value = this.obj[this.key]
+    this.cb(this.value)
+  }
+}
+function Observe(obj) {
+	Object.keys(obj).forEach(key => {
+    defineReactive(obj, key, obj[key])
+})
+  function defineReactive(obj, key, value) {
+    let dep = new Dep()
+    Object.defineProperty(obj, key, {
+      get() {
+        if (Dep.target) {
+          dep.addSub(Dep.target)
+        }
+        return value
+      },
+      set(newValue) {
+        render() // 渲染界面
+        value = newValue
+        dep.notify()
+      }
+    })
+  }
+}
+class Vue {
+  constroctor(option) {
+    this._data = option
+    Observer(this._data)
+    new Watchar()
+  }
+}
+
+```
+
+
+
 #### Proxy
 
 数据拦截

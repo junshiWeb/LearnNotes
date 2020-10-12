@@ -64,7 +64,7 @@ const deepClone = (target) => {
 
 ## 3. 防抖节流
 
-- 防抖：在一段时间时间内多次触发一个事件，会重置事件，知道这段时间没有在触发这个事件
+- 防抖：在一段时间时间内多次触发一个事件，会重置事件，直到这段时间没有在触发这个事件
 
 ```js
 function debounce(fn, delay) {
@@ -132,7 +132,6 @@ Function.prototype.mycall = function(context, ...args) {
 }
 
 Function.prototype.mycall = function(context, ...args) {
-  let res 
   fn = Symbol('fn')
   context[fn] = this
   const res = context[fn](...args)
@@ -215,12 +214,12 @@ const myFlat = arr => {
 const res1 = arr.flat(Infinity)
 
 // JSON方法
-const res2 = JSON.stringify(arr).resplace(/\[}\]/, '').split(',')
-const res3 = JSON.parse('[' + JSON.stringif(arr).resplace(/\[|\]/, '') + ']')
+const res2 = JSON.stringify(arr).replace(/\[}\]/, '').split(',')
+const res3 = JSON.parse('[' + JSON.stringif(arr).replace(/\[|\]/, '') + ']')
 
 ```
 
-- 柯里化：是给函数分步传递参数，每次传递部分参数，并返回一个更具体的函数接收剩下的参数，这中间可嵌套多层这样的接收部分参数的函数，直至返回最后结果。
+- 柯里化：把接收多个参数的函数变成接收一个单一参数的函数，并且返回接受余下参数而且返回结果的新函数
 
 ```js
 // add的参数不固定，看有几个数字累计相加
@@ -247,6 +246,33 @@ function currying (fn, ...args) {
 let fn1 = currying(add, 1, 2) // 3
 let fn2 = fn1(3)  // 6
 let fn3 = fn2(4)  // 10
+
+// ES6 的实现
+function currying(func, args = []) {
+    let arity = func.length;
+
+    return function (..._args) {
+        _args.unshift(...args);
+
+        if(_args.length < arity) {
+            return currying.call(null, func, _args);
+        }
+
+        return func(..._args);
+    }
+}
+// 被转换函数，用于检测传入的字符串是否符合正则表达式
+function checkFun(reg, str) {
+    return reg.test(str);
+}
+
+// 转换柯里化
+let check = currying(checkFun);
+
+// 产生新的功能函数
+let checkPhone = check(/^1[34578]\d{9}$/);
+let checkEmail = check(/^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/);
+
 
 ```
 
